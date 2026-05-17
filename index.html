@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Koždoň Reality — Odhad ceny nemovitosti</title>
+<meta name="description" content="Zjistěte orientační tržní hodnotu vaší nemovitosti. Bezplatný odhad od Koždoň Reality."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #0f2030;
+  --navy2: #1c3040;
+  --navy3: #2a4a60;
+  --gold: #3b82f6;
+  --gold2: #60a5fa;
+  --cream: #f0f8ff;
+  --white: #ffffff;
+  --gray1: #f1f5f9;
+  --gray2: #cbd5e1;
+  --gray3: #94a3b8;
+  --text: #0f172a;
+  --text2: #4a4540;
+  --font-sans: 'Outfit', sans-serif;
+  --font-serif: 'Outfit', sans-serif;
+  --r: 12px;
+  --r2: 20px;
+  --shadow: 0 4px 24px rgba(15,32,48,0.10);
+  --shadow2: 0 8px 40px rgba(15,32,48,0.16);
+}
+
+html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+body {
+  font-family: var(--font-sans);
+  background: url('pozadi.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── HEADER ── */
+.header {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0 2rem;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.1);
+}
+
+.header-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  background: linear-gradient(135deg, var(--navy2) 0%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.header-logo-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.header-logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-logo-name {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--white);
+  line-height: 1.1;
+}
+
+.header-logo-sub {
+  font-size: 0.65rem;
+  color: var(--gold2);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.header-contact {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border: 1.5px solid var(--gray2);
+  padding: 0.5rem 1.1rem;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.7);
+  transition: all 0.2s;
+}
+
+.header-contact:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--white);
+  transform: translateY(-1px);
+}
+
+.header-contact-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--text);
+  border-radius: 50%;
+  animation: blink 2s infinite;
+}
+
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* ── MAIN ── */
+.main {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem 1rem 3rem;
+}
+
+/* ── CHAT SHELL ── */
+.chat-shell {
+  width: 100%;
+  max-width: 680px;
+  background: var(--white);
+  border-radius: var(--r2);
+  box-shadow: var(--shadow2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 500px;
+}
+
+/* ── CHAT TOP BAR ── */
+.chat-topbar {
+  background: var(--navy2);
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.chat-avatar {
+  width: 36px;
+  height: 36px;
+  background: var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: var(--font-serif);
+  color: var(--white);
+  font-size: 1rem;
+}
+
+.chat-topbar-info {}
+.chat-topbar-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--white);
+}
+.chat-topbar-status {
+  font-size: 0.7rem;
+  color: #6ecf87;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 1px;
+}
+.status-dot {
+  width: 5px;
+  height: 5px;
+  background: #6ecf87;
+  border-radius: 50%;
+}
+
+.chat-restart {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.72rem;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s;
+}
+.chat-restart:hover { background: rgba(255,255,255,0.2); color: white; }
+
+/* ── MESSAGES ── */
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  scroll-behavior: smooth;
+}
+.chat-messages::-webkit-scrollbar { width: 4px; }
+.chat-messages::-webkit-scrollbar-thumb { background: var(--gray2); border-radius: 2px; }
+
+/* ── MESSAGE BUBBLES ── */
+.msg {
+  display: flex;
+  flex-direction: column;
+  max-width: 78%;
+  animation: pop-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.msg.bot { align-self: flex-start; }
+.msg.user { align-self: flex-end; }
+
+.msg-bubble {
+  padding: 0.75rem 1rem;
+  border-radius: var(--r);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.msg.bot .msg-bubble {
+  background: var(--gray1);
+  color: var(--text);
+  border-bottom-left-radius: 3px;
+  border: 1px solid var(--gray2);
+}
+.msg.user .msg-bubble {
+  background: var(--navy2);
+  color: var(--white);
+  border-bottom-right-radius: 3px;
+}
+.msg-time {
+  font-size: 0.65rem;
+  color: var(--gray3);
+  margin-top: 0.25rem;
+  padding: 0 0.2rem;
+}
+.msg.user .msg-time { text-align: right; }
+
+/* ── TYPING ── */
+.typing {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0.75rem 1rem;
+  background: var(--gray1);
+  border: 1px solid var(--gray2);
+  border-radius: var(--r);
+  border-bottom-left-radius: 3px;
+  width: fit-content;
+  animation: pop-in 0.25s ease both;
+}
+.typing-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--gray3);
+  border-radius: 50%;
+  animation: bounce 1.1s infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.18s; }
+.typing-dot:nth-child(3) { animation-delay: 0.36s; }
+@keyframes bounce {
+  0%,60%,100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-5px); opacity: 1; }
+}
+
+/* ── RESULT CARD ── */
+.result-card {
+  background: var(--navy);
+  border-radius: var(--r2);
+  overflow: hidden;
+  animation: pop-in 0.5s cubic-bezier(0.34,1.2,0.64,1) both;
+  align-self: stretch;
+  max-width: 100%;
+}
+
+.result-top {
+  padding: 1.5rem 1.5rem 1.25rem;
+  background: linear-gradient(135deg, var(--navy2) 0%, var(--navy) 100%);
+  border-bottom: 1px solid rgba(59,130,246,0.3);
+}
+
+.result-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(59,130,246,0.15);
+  border: 1px solid rgba(59,130,246,0.4);
+  border-radius: 100px;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--gold2);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.result-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 0.35rem;
+  font-weight: 500;
+}
+
+.result-price {
+  font-family: var(--font-serif);
+  font-size: 2.4rem;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.result-price-accent {
+  color: var(--gold2);
+}
+
+.result-range {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.5);
+  margin-top: 0.3rem;
+}
+
+.result-body {
+  padding: 1.25rem 1.5rem;
+}
+
+.result-summary {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.result-factors {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.result-factor {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+}
+
+.factor-label { color: rgba(255,255,255,0.45); }
+.factor-value { font-weight: 600; color: rgba(255,255,255,0.8); }
+.factor-value.pos { color: #6ecf87; }
+.factor-value.neg { color: #f87171; }
+
+/* ── CTA BUTTONS ── */
+.cta-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-self: flex-start;
+  margin-top: 0.25rem;
+  animation: pop-in 0.3s ease both;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--gold);
+  color: var(--white);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.65rem 1.2rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  color: var(--text2);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 0.65rem 1.2rem;
+  border-radius: 10px;
+  border: 1px solid var(--gray2);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-secondary:hover { border-color: var(--navy2); color: var(--navy2); }
+
+/* ── OPTIONS ── */
+.chat-options {
+  padding: 0 1.25rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.opt-btn {
+  background: var(--white);
+  border: 1.5px solid var(--gray2);
+  border-radius: 100px;
+  padding: 0.45rem 1rem;
+  font-size: 0.8rem;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.opt-btn:hover { border-color: var(--navy2); color: var(--navy2); background: var(--gray1); }
+.opt-btn.selected { background: var(--navy2); color: var(--white); border-color: var(--navy2); }
+.opt-btn.confirm-btn { background: var(--gold); color: white; border-color: var(--gold); font-weight: 600; }
+.opt-btn.confirm-btn:hover { background: var(--gold2); border-color: var(--gold2); }
+
+/* ── INPUT ── */
+.chat-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  border-top: 1px solid var(--gray1);
+  background: var(--gray1);
+}
+
+.chat-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--text);
+  line-height: 1.4;
+}
+.chat-input::placeholder { color: var(--gray3); }
+.chat-input:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.send-btn {
+  width: 36px;
+  height: 36px;
+  background: var(--navy2);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.send-btn:hover { background: var(--navy3); transform: scale(1.05); }
+.send-btn:disabled { background: var(--gray2); cursor: not-allowed; transform: none; }
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center;
+  padding: 1.25rem;
+  font-size: 0.72rem;
+  color: var(--text);
+  border-top: 1px solid var(--gray2);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 850px) {
+  .header-title { font-size: 1.2rem; }
+}
+@media (max-width: 680px) {
+  .header-title { display: none; }
+}
+@media (max-width: 600px) {
+  .main { padding: 0; }
+  .chat-shell { border-radius: 0; box-shadow: none; min-height: calc(100vh - 100px); }
+  .result-price { font-size: 1.9rem; }
+  .header-contact { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="https://www.kozdonreality.cz/" class="header-logo" target="_top">
+    <img src="logo.png" alt="Koždoň Reality" style="width: auto; height: 75px; max-width: 320px; object-fit: contain; transform: scale(1.6); transform-origin: left center;">
+  </a>
+  <div class="header-title">Ocenění nemovitosti zdarma</div>
+  <a href="tel:+420777598842" class="header-contact">
+    <span class="header-contact-dot"></span>
+    +420 777 598 842
+  </a>
+</header>
+
+<main class="main">
+  <div class="chat-shell">
+
+    <div class="chat-topbar">
+      <div class="chat-topbar-left">
+        <div class="chat-avatar">
+          <img src="p.jpg" alt="Avatar" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+        </div>
+        <div class="chat-topbar-info">
+          <div class="chat-topbar-name">Asistent Koždoň Reality</div>
+          <div class="chat-topbar-status"><span class="status-dot"></span>Online</div>
+        </div>
+      </div>
+      <button class="chat-restart" id="restartBtn" onclick="location.reload()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        Nový odhad
+      </button>
+    </div>
+
+    <div class="chat-messages" id="msgs"></div>
+    <div class="chat-options" id="opts"></div>
+
+    <div class="chat-input-row" id="inputRow">
+      <input type="text" class="chat-input" id="inp" placeholder="Napište odpověď..." autocomplete="off" disabled/>
+      <button class="send-btn" id="sendBtn" disabled>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+
+  </div>
+</main>
+
+<footer class="footer">
+  &copy; 2026 Koždoň Reality. Všechna práva vyhrazena. Odhad má orientační charakter.
+</footer>
+
+<script>
+(function() {
+  "use strict";
+
+  /* ── PRICE DATABASE ── */
+  var PRICE_DB = {
+    "praha 1": { base: 172000, label: "Praha 1 – Staré Město / Nové Město" },
+    "praha 2": { base: 155000, label: "Praha 2 – Vinohrady / Nusle" },
+    "praha 3": { base: 128000, label: "Praha 3 – Žižkov / Vinohrady" },
+    "praha 4": { base: 118000, label: "Praha 4 – Nusle / Braník / Háje" },
+    "praha 5": { base: 130000, label: "Praha 5 – Smíchov / Košíře" },
+    "praha 6": { base: 140000, label: "Praha 6 – Dejvice / Bubeneč" },
+    "praha 7": { base: 132000, label: "Praha 7 – Holešovice / Letná" },
+    "praha 8": { base: 121000, label: "Praha 8 – Kobylisy / Libeň" },
+    "praha 9": { base: 112000, label: "Praha 9 – Vysočany / Letňany" },
+    "praha 10": { base: 119000, label: "Praha 10 – Vršovice / Strašnice" },
+    "praha": { base: 138000, label: "Praha (průměr)" },
+    "beroun": { base: 68000, label: "Beroun a okolí" },
+    "brandys": { base: 72000, label: "Brandýs nad Labem" },
+    "kladno": { base: 56000, label: "Kladno" },
+    "kralupy": { base: 65000, label: "Kralupy nad Vltavou" },
+    "melnik": { base: 62000, label: "Mělník" },
+    "mnichovo": { base: 61000, label: "Mnichovo Hradiště" },
+    "neratovice": { base: 64000, label: "Neratovice" },
+    "pribram": { base: 48000, label: "Příbram" },
+    "rakovnik": { base: 42000, label: "Rakovník" },
+    "ricany": { base: 82000, label: "Říčany" },
+    "brno stred": { base: 108000, label: "Brno-střed" },
+    "brno sever": { base: 88000, label: "Brno-sever" },
+    "brno jih": { base: 84000, label: "Brno-jih" },
+    "brno bystrc": { base: 81000, label: "Brno-Bystrc" },
+    "brno lisne": { base: 76000, label: "Brno-Líšeň" },
+    "brno": { base: 92000, label: "Brno (průměr)" },
+    "ostrava": { base: 52000, label: "Ostrava" },
+    "plzen": { base: 68000, label: "Plzeň" },
+    "liberec": { base: 55000, label: "Liberec" },
+    "olomouc": { base: 63000, label: "Olomouc" },
+    "ceske budejovice": { base: 61000, label: "České Budějovice" },
+    "hradec kralove": { base: 66000, label: "Hradec Králové" },
+    "pardubice": { base: 64000, label: "Pardubice" },
+    "zlin": { base: 54000, label: "Zlín" },
+    "jihlava": { base: 48000, label: "Jihlava" },
+    "karlovy vary": { base: 46000, label: "Karlovy Vary" },
+    "usti nad labem": { base: 22000, label: "Ústí nad Labem" },
+    "most": { base: 18000, label: "Most" },
+    "teplice": { base: 26000, label: "Teplice" },
+    "decin": { base: 20000, label: "Děčín" },
+    "chomutov": { base: 20000, label: "Chomutov" },
+    "default": { base: 55000, label: "zadaná lokalita" }
+  };
+
+  var TYPE_MULTI = {
+    "byt": 1.0, "rodinny_dum": 0.88, "vila": 1.22,
+    "penthouse": 1.55, "atelier": 0.92, "garsoniera": 1.12
+  };
+
+  var CONDITION_MULTI = {
+    "novostavba": 1.28, "po_rekonstrukci": 1.10, "dobry": 1.0,
+    "castecna_reko": 0.88, "puvodni": 0.74
+  };
+
+  var OWNERSHIP_MULTI = {
+    "osobni": 1.0, "druzstevni": 0.85
+  };
+
+  /* ── STATE ── */
+  var answers = {};
+  var finished = false;
+  var currentStep = "welcome";
+
+  /* ── FLOW ── */
+  var FLOW = {
+    welcome: {
+      msgs: ["Dobrý den! Jsem asistent Koždoň Reality.", "Provedu vás odhadem orientační tržní hodnoty vaší nemovitosti. Celý proces zabere přibližně dvě minuty."],
+      next: "type"
+    },
+    type: {
+      msgs: ["Nejprve — o jaký typ nemovitosti se jedná?"],
+      key: "type",
+      opts: [
+        {l:"Byt", v:"byt"}, {l:"Rodinný dům", v:"rodinny_dum"},
+        {l:"Vila", v:"vila"}, {l:"Penthouse", v:"penthouse"},
+        {l:"Ateliér / loft", v:"atelier"}, {l:"Garsoniera", v:"garsoniera"}
+      ],
+      next: "location"
+    },
+    location: {
+      msgs: ["Výborně. V jaké lokalitě se nemovitost nachází? Napište město nebo část Prahy — například Praha 2, Brno, Olomouc."],
+      key: "location",
+      text: true,
+      next: "size"
+    },
+    size: {
+      msgs: ["Jaká je užitná plocha nemovitosti? Uveďte číslo v metrech čtverečních."],
+      key: "size",
+      text: true,
+      next: "condition"
+    },
+    condition: {
+      msgs: ["Jak byste popsali stav nemovitosti?"],
+      key: "condition",
+      opts: [
+        {l:"Novostavba (do 5 let)", v:"novostavba"},
+        {l:"Po kompletní rekonstrukci", v:"po_rekonstrukci"},
+        {l:"Dobrý stav", v:"dobry"},
+        {l:"Částečná rekonstrukce potřeba", v:"castecna_reko"},
+        {l:"Původní stav", v:"puvodni"}
+      ],
+      next: "balcony"
+    },
+    balcony: {
+      msgs: ["Disponuje nemovitost balkonem, terasou nebo zahradou?"],
+      key: "balcony",
+      opts: [
+        {l:"Balkon", v:"balkon"}, {l:"Terasa", v:"terasa"},
+        {l:"Zahrada", v:"zahrada"}, {l:"Nic z uvedeného", v:"zadny"}
+      ],
+      next: "parking"
+    },
+    parking: {
+      msgs: ["Je součástí nemovitosti parkovací stání?"],
+      key: "parking",
+      opts: [
+        {l:"Garáž", v:"garaz"}, {l:"Garážové stání", v:"garazove_stani"},
+        {l:"Parkovací místo", v:"parkovaci"}, {l:"Ne", v:"zadne"}
+      ],
+      next: "floor"
+    },
+    floor: {
+      msgs: ["V jakém patře se nemovitost nachází? Zadejte číslo patra (0 = přízemí)."],
+      key: "floor",
+      text: true,
+      next: "ownership"
+    },
+    ownership: {
+      msgs: ["Je nemovitost v osobním nebo družstevním vlastnictví?"],
+      key: "ownership",
+      opts: [
+        {l:"Osobní vlastnictví", v:"osobni"},
+        {l:"Družstevní vlastnictví", v:"druzstevni"}
+      ],
+      next: "extras"
+    },
+    extras: {
+      msgs: ["Poslední otázka — vyberte bonusové parametry nemovitosti:"],
+      key: "extras",
+      multi: true,
+      opts: [
+        {l:"Výhled na park / vodu", v:"vyhled"},
+        {l:"Klimatizace", v:"klima"},
+        {l:"Nízkoenergetická budova", v:"nizkoenergeticka"},
+        {l:"Klidná ulice", v:"klidna"},
+        {l:"Žádné bonusy", v:"zadne"}
+      ],
+      next: "result"
+    }
+  };
+
+  /* ── DOM REFS ── */
+  var msgsEl = document.getElementById("msgs");
+  var optsEl = document.getElementById("opts");
+  var inpEl  = document.getElementById("inp");
+  var sendEl = document.getElementById("sendBtn");
+  var inputRowEl = document.getElementById("inputRow");
+  var restartEl  = document.getElementById("restartBtn");
+
+  /* ── HELPERS ── */
+  function norm(s) {
+    return (s || "").toLowerCase().trim()
+      .replace(/\s+/g," ")
+      .replace(/[áä]/g,"a").replace(/[éě]/g,"e").replace(/[íï]/g,"i")
+      .replace(/[óö]/g,"o").replace(/[úůü]/g,"u").replace(/ý/g,"y")
+      .replace(/č/g,"c").replace(/š/g,"s").replace(/ž/g,"z")
+      .replace(/ř/g,"r").replace(/ň/g,"n").replace(/ď/g,"d").replace(/ť/g,"t");
+  }
+
+  function fmt(n) {
+    if (n === null || n === undefined || isNaN(n)) return "–";
+    return Math.round(n).toLocaleString("cs-CZ") + " Kč";
+  }
+
+  function timeStr() {
+    return new Date().toLocaleTimeString("cs-CZ", {hour:"2-digit", minute:"2-digit"});
+  }
+
+  function scrollBottom() {
+    msgsEl.scrollTop = msgsEl.scrollHeight;
+  }
+
+  function wait(ms) {
+    return new Promise(function(res){ setTimeout(res, ms); });
+  }
+
+  function setInput(on) {
+    inpEl.disabled = !on;
+    sendEl.disabled = !on;
+    if (on) inpEl.focus();
+  }
+
+  function clearOpts() {
+    optsEl.innerHTML = "";
+  }
+
+  /* ── ADD MESSAGE ── */
+  function addMsg(role, text) {
+    var wrap = document.createElement("div");
+    wrap.className = "msg " + role;
+    var bubble = document.createElement("div");
+    bubble.className = "msg-bubble";
+    bubble.textContent = text;
+    var time = document.createElement("span");
+    time.className = "msg-time";
+    time.textContent = timeStr();
+    wrap.appendChild(bubble);
+    wrap.appendChild(time);
+    msgsEl.appendChild(wrap);
+    scrollBottom();
+    return wrap;
+  }
+
+  /* ── TYPING INDICATOR ── */
+  var typingEl = null;
+  function showTyping() {
+    typingEl = document.createElement("div");
+    typingEl.className = "typing";
+    typingEl.id = "typing";
+    for (var i=0; i<3; i++) {
+      var d = document.createElement("span");
+      d.className = "typing-dot";
+      typingEl.appendChild(d);
+    }
+    msgsEl.appendChild(typingEl);
+    scrollBottom();
+  }
+  function hideTyping() {
+    var el = document.getElementById("typing");
+    if (el) el.remove();
+    typingEl = null;
+  }
+
+  /* ── BOT SAY ── */
+  async function botSay(messages) {
+    setInput(false);
+    clearOpts();
+    for (var i=0; i<messages.length; i++) {
+      var msg = messages[i];
+      var delay = Math.min(1000, Math.max(500, msg.length * 18));
+      await wait(300);
+      showTyping();
+      await wait(delay);
+      hideTyping();
+      addMsg("bot", msg);
+      if (i < messages.length-1) await wait(150);
+    }
+  }
+
+  /* ── USER INPUT ── */
+  function addUserMsg(text) {
+    addMsg("user", text);
+    setInput(false);
+    clearOpts();
+  }
+
+  /* ── SHOW OPTIONS ── */
+  function showOpts(step) {
+    clearOpts();
+    var opts = step.opts;
+    var multi = !!step.multi;
+    var selected = [];
+
+    if (!multi) {
+      opts.forEach(function(o) {
+        var btn = document.createElement("button");
+        btn.className = "opt-btn";
+        btn.textContent = o.l;
+        btn.onclick = function() {
+          clearOpts();
+          addUserMsg(o.l);
+          answers[step.key] = o.v;
+          advance(step.next);
+        };
+        optsEl.appendChild(btn);
+      });
+    } else {
+      // Multi-select
+      var confirmBtn = document.createElement("button");
+      confirmBtn.className = "opt-btn confirm-btn";
+      confirmBtn.textContent = "✓ Potvrdit výběr";
+      confirmBtn.style.display = "none";
+
+      opts.forEach(function(o) {
+        var btn = document.createElement("button");
+        btn.className = "opt-btn";
+        btn.textContent = o.l;
+        btn.onclick = function() {
+          if (o.v === "zadne") {
+            // Clear all, select only zadne
+            selected = ["zadne"];
+            optsEl.querySelectorAll(".opt-btn:not(.confirm-btn)").forEach(function(b){ b.classList.remove("selected"); });
+            btn.classList.add("selected");
+            confirmBtn.style.display = "inline-flex";
+            return;
+          }
+          // Toggle
+          var idx = selected.indexOf(o.v);
+          if (idx > -1) {
+            selected.splice(idx, 1);
+            btn.classList.remove("selected");
+          } else {
+            // Remove zadne if present
+            var zi = selected.indexOf("zadne");
+            if (zi > -1) {
+              selected.splice(zi, 1);
+              optsEl.querySelectorAll(".opt-btn").forEach(function(b){
+                if (b.textContent.includes("bonusy")) b.classList.remove("selected");
+              });
+            }
+            selected.push(o.v);
+            btn.classList.add("selected");
+          }
+          confirmBtn.style.display = selected.length > 0 ? "inline-flex" : "none";
+        };
+        optsEl.appendChild(btn);
+      });
+
+      confirmBtn.onclick = function() {
+        if (selected.length === 0) selected = ["zadne"];
+        var labels = selected.map(function(v) {
+          var match = opts.find(function(o){ return o.v === v; });
+          return match ? match.l : v;
+        });
+        clearOpts();
+        addUserMsg(labels.join(", "));
+        answers[step.key] = selected;
+        advance(step.next);
+      };
+      optsEl.appendChild(confirmBtn);
+    }
+  }
+
+  /* ── PRICE CALCULATION ── */
+  function lookupLocation(raw) {
+    var input = norm(raw);
+    var keys = Object.keys(PRICE_DB);
+    for (var i=0; i<keys.length; i++) {
+      var k = norm(keys[i]);
+      if (input.indexOf(k) > -1 || k.indexOf(input) > -1) {
+        return PRICE_DB[keys[i]];
+      }
+    }
+    return PRICE_DB["default"];
+  }
+
+  function calcPrice() {
+    var a = answers;
+    var loc = lookupLocation(a.location || "");
+    var ppsm = loc.base;
+
+    ppsm *= (TYPE_MULTI[a.type] || 1.0);
+    ppsm *= (CONDITION_MULTI[a.condition] || 1.0);
+    ppsm *= (OWNERSHIP_MULTI[a.ownership] || 1.0);
+
+    var floor = parseInt(a.floor) || 0;
+    if (a.type === "byt" || a.type === "garsoniera" || a.type === "penthouse") {
+      if (floor === 0) ppsm *= 0.95;
+      else if (floor >= 4 && floor <= 7) ppsm *= 1.03;
+      else if (floor >= 8) ppsm *= 1.06;
+    }
+
+    var balBonus = 0;
+    if (a.balcony === "balkon") balBonus = ppsm * 0.03;
+    if (a.balcony === "terasa") balBonus = ppsm * 0.05;
+    if (a.balcony === "zahrada") balBonus = ppsm * 0.07;
+
+    var parkBonus = 0;
+    if (a.parking === "garaz") parkBonus = 600000;
+    if (a.parking === "garazove_stani") parkBonus = 380000;
+    if (a.parking === "parkovaci") parkBonus = 150000;
+
+    var extM = 1.0;
+    var extras = Array.isArray(a.extras) ? a.extras : [];
+    if (extras.indexOf("vyhled") > -1) extM += 0.04;
+    if (extras.indexOf("klima") > -1) extM += 0.015;
+    if (extras.indexOf("nizkoenergeticka") > -1) extM += 0.025;
+    if (extras.indexOf("klidna") > -1) extM += 0.01;
+
+    var sizeStr = String(a.size || "60").replace(/[^0-9.,]/g,"").replace(",",".");
+    var size = Math.max(10, Math.min(2000, parseFloat(sizeStr) || 60));
+
+    var baseTotal = (ppsm + balBonus) * size * extM + parkBonus;
+    var total = Math.round(baseTotal / 50000) * 50000;
+    var rangeLow = Math.round(total * 0.92 / 50000) * 50000;
+    var rangeHigh = Math.round(total * 1.08 / 50000) * 50000;
+
+    return {
+      total: total,
+      rangeLow: rangeLow,
+      rangeHigh: rangeHigh,
+      ppsm: Math.round(ppsm),
+      size: Math.round(size),
+      locLabel: loc.label,
+      floor: floor
+    };
+  }
+
+  /* ── SHOW RESULT ── */
+  function showResult(r) {
+    // Type / condition labels
+    var typeLabels = { byt:"byt", rodinny_dum:"rodinný dům", vila:"vilu", penthouse:"penthouse", atelier:"ateliér", garsoniera:"garsoniéru" };
+    var condLabels = { novostavba:"novostavba", po_rekonstrukci:"nemovitost po rekonstrukci", dobry:"nemovitost v dobrém stavu", castecna_reko:"nemovitost vyžadující rekonstrukci", puvodni:"nemovitost v původním stavu" };
+    var typeLbl = typeLabels[answers.type] || "nemovitost";
+    var condLbl = condLabels[answers.condition] || "nemovitost";
+    var floorTxt = r.floor > 0 ? (r.floor + ". patro") : "přízemí";
+    var ownershipLbl = answers.ownership === "druzstevni" ? "družstevní vlastnictví" : "osobní vlastnictví";
+
+    // Build factors
+    var factors = [];
+    factors.push({ l:"Cena za m²", v: r.ppsm.toLocaleString("cs-CZ") + " Kč/m²" });
+    var cond = answers.condition;
+    if (cond === "novostavba") factors.push({ l:"Novostavba", v:"+28 %", pos:true });
+    else if (cond === "po_rekonstrukci") factors.push({ l:"Po rekonstrukci", v:"+10 %", pos:true });
+    else if (cond === "castecna_reko") factors.push({ l:"Vyžaduje rekonstrukci", v:"−12 %", neg:true });
+    else if (cond === "puvodni") factors.push({ l:"Původní stav", v:"−26 %", neg:true });
+    if (answers.balcony === "balkon") factors.push({ l:"Balkon", v:"+3 %", pos:true });
+    if (answers.balcony === "terasa") factors.push({ l:"Terasa", v:"+5 %", pos:true });
+    if (answers.balcony === "zahrada") factors.push({ l:"Zahrada", v:"+7 %", pos:true });
+    if (answers.parking === "garaz") factors.push({ l:"Garáž", v:"+600 000 Kč", pos:true });
+    else if (answers.parking === "garazove_stani") factors.push({ l:"Garážové stání", v:"+380 000 Kč", pos:true });
+    else if (answers.parking === "parkovaci") factors.push({ l:"Parkovací místo", v:"+150 000 Kč", pos:true });
+    if (answers.ownership === "druzstevni") factors.push({ l:"Družstevní vlastnictví", v:"−15 %", neg:true });
+    var extras = Array.isArray(answers.extras) ? answers.extras : [];
+    if (extras.indexOf("vyhled") > -1) factors.push({ l:"Výhled", v:"+4 %", pos:true });
+    if (extras.indexOf("klima") > -1) factors.push({ l:"Klimatizace", v:"+1,5 %", pos:true });
+    if (extras.indexOf("nizkoenergeticka") > -1) factors.push({ l:"Nízkoenergetická budova", v:"+2,5 %", pos:true });
+
+    var factorsHTML = factors.map(function(f) {
+      var cls = f.pos ? "pos" : f.neg ? "neg" : "";
+      return '<div class="result-factor"><span class="factor-label">'+f.l+'</span><span class="factor-value '+cls+'">'+f.v+'</span></div>';
+    }).join("");
+
+    // Format price — split into number and "Kč"
+    var priceNum = Math.round(r.total).toLocaleString("cs-CZ");
+
+    // Create and append card
+    var card = document.createElement("div");
+    card.className = "result-card";
+    card.innerHTML =
+      '<div class="result-top">' +
+        '<div class="result-badge">✦ Výsledek odhadu</div>' +
+        '<div class="result-label">Orientační tržní hodnota</div>' +
+        '<div class="result-price"><span class="result-price-accent">' + priceNum + '</span> Kč</div>' +
+        '<div class="result-range">Odhadované rozmezí: ' + fmt(r.rangeLow) + ' – ' + fmt(r.rangeHigh) + '</div>' +
+      '</div>' +
+      '<div class="result-body">' +
+        '<div class="result-summary">' +
+          'Jedná se o ' + typeLbl + ' o rozloze <strong style="color:rgba(255,255,255,0.85)">' + r.size + ' m²</strong>' +
+          ' v lokalitě <strong style="color:rgba(255,255,255,0.85)">' + r.locLabel + '</strong>' +
+          ' (' + floorTxt + ', ' + condLbl + ', ' + ownershipLbl + ').' +
+          ' Průměrná cena v lokalitě: <strong style="color:rgba(255,255,255,0.85)">' + r.ppsm.toLocaleString("cs-CZ") + ' Kč/m²</strong>.' +
+        '</div>' +
+        '<div class="result-factors">' + factorsHTML + '</div>' +
+      '</div>';
+
+    msgsEl.appendChild(card);
+    scrollBottom();
+  }
+
+  /* ── CTA ── */
+  function showCTA() {
+    var row = document.createElement("div");
+    row.className = "cta-row";
+
+    var a = document.createElement("a");
+    a.className = "btn-primary";
+    a.href = "https://www.kozdonreality.cz/kontakt/";
+    a.target = "_top";
+    a.innerHTML = "Kontaktovat nás &#8594;";
+
+    var b = document.createElement("button");
+    b.className = "btn-secondary";
+    b.textContent = "Nový odhad";
+    b.onclick = function(){ location.reload(); };
+
+    row.appendChild(a);
+    row.appendChild(b);
+    msgsEl.appendChild(row);
+    scrollBottom();
+
+    // Show restart btn in topbar too
+    restartEl.style.display = "flex";
+    // Hide input row
+    inputRowEl.style.display = "none";
+  }
+
+  /* ── CALCULATING SEQUENCE ── */
+  async function doCalculating() {
+    var locName = answers.location || "dané lokality";
+    var analysisMsgs = [
+      "Zpracovávám zadané parametry...",
+      "Prohledávám databázi nedávných transakcí v oblasti " + locName + "...",
+      "Porovnávám srovnatelné nemovitosti z posledních 12 měsíců...",
+      "Zohledňuji aktuální trendy trhu...",
+      "Výsledek je připraven."
+    ];
+    for (var i=0; i<analysisMsgs.length; i++) {
+      await botSay([analysisMsgs[i]]);
+      await wait(400);
+    }
+    await botSay(["Orientační tržní hodnota vaší nemovitosti je zobrazena níže. Jedná se o kvalifikovaný odhad na základě dostupných tržních dat."]);
+    await wait(200);
+
+    var result = calcPrice();
+    showResult(result);
+    await wait(400);
+    showCTA();
+    finished = true;
+  }
+
+  /* ── ADVANCE FLOW ── */
+  async function advance(stepId) {
+    if (stepId === "result") {
+      await doCalculating();
+      return;
+    }
+    var step = FLOW[stepId];
+    if (!step) return;
+    currentStep = stepId;
+    await botSay(step.msgs);
+    if (step.opts) {
+      showOpts(step);
+    } else if (step.text) {
+      setInput(true);
+    }
+    // Welcome auto-advances
+    if (stepId === "welcome") {
+      await wait(400);
+      await advance("type");
+    }
+  }
+
+  /* ── INPUT HANDLING ── */
+  function handleSubmit() {
+    if (finished) return;
+    var val = inpEl.value.trim();
+    if (!val) return;
+    inpEl.value = "";
+
+    var step = FLOW[currentStep];
+    if (!step || !step.text) return;
+
+    // Validate size
+    if (currentStep === "size") {
+      var num = parseFloat(val.replace(/[^0-9.,]/g,"").replace(",","."));
+      if (!num || num < 5 || num > 5000) {
+        botSay(["Prosím zadejte reálnou plochu v m² — například 65 nebo 120."]).then(function(){ setInput(true); });
+        return;
+      }
+    }
+    // Validate floor
+    if (currentStep === "floor") {
+      var n = parseInt(val.replace(/[^0-9]/g,""));
+      if (isNaN(n) || n < 0 || n > 100) {
+        botSay(["Zadejte prosím číslo patra, například 0 pro přízemí nebo 3 pro třetí patro."]).then(function(){ setInput(true); });
+        return;
+      }
+    }
+
+    addUserMsg(val);
+    answers[step.key] = val;
+    advance(step.next);
+  }
+
+  sendEl.addEventListener("click", handleSubmit);
+  inpEl.addEventListener("keydown", function(e) {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSubmit(); }
+  });
+
+  /* ── START ── */
+  setTimeout(function() {
+    advance("welcome");
+  }, 600);
+
+})();
+</script>
+</body>
+</html>
